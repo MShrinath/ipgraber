@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your IP Address</title>
+    <title>Your IP & Device Info</title>
 </head>
 <body>
     <h2>Your IP Address:</h2>
     <p><strong><%= ip %></strong></p>
+
+    <h2>Your Device Details:</h2>
+    <ul>
+        <li><strong>Browser:</strong> <%= deviceInfo.browser %> <%= deviceInfo.browserVersion %></li>
+        <li><strong>OS:</strong> <%= deviceInfo.os %> <%= deviceInfo.osVersion %></li>
+        <li><strong>Device:</strong> <%= deviceInfo.device %></li>
+    </ul>
 </body>
 </html>

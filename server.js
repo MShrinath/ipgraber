@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const UAParser = require("ua-parser-js");
 
 const app = express();
 const PORT = 3000;
@@ -11,9 +12,18 @@ app.set("views", path.join(__dirname, "views"));
 // Middleware to extract real IP
 app.get("/", (req, res) => {
     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-    if (ip.includes(",")) ip = ip.split(",")[0]; // In case of multiple proxies
+    if (ip.includes(",")) ip = ip.split(",")[0];
 
-    res.render("index", { ip });
+    const parser = new UAParser(req.headers["user-agent"]);
+    const deviceInfo = {
+        browser: parser.getBrowser().name,
+        browserVersion: parser.getBrowser().version,
+        os: parser.getOS().name,
+        osVersion: parser.getOS().version,
+        device: parser.getDevice().type || "PC/Laptop",
+    };
+
+    res.render("index", { ip, deviceInfo });
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
