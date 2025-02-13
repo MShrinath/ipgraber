@@ -21,6 +21,8 @@ app.get("/", (req, res) => {
         os: parser.getOS().name,
         osVersion: parser.getOS().version,
         device: parser.getDevice().type || "PC/Laptop",
+        cpu: parser.getCPU().architecture || "Unknown",
+        userAgent: req.headers["user-agent"],
     };
 
     res.render("index", { ip, deviceInfo });
