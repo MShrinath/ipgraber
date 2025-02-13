@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const UAParser = require("ua-parser-js");
+const axios = require("axios");
 
 const app = express();
 const PORT = 3000;
@@ -10,7 +11,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Middleware to extract real IP
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
     if (ip.includes(",")) ip = ip.split(",")[0];
 
@@ -25,7 +26,20 @@ app.get("/", (req, res) => {
         userAgent: req.headers["user-agent"],
     };
 
-    res.render("index", { ip, deviceInfo });
+    let ispInfo = {};
+    try {
+        const response = await axios.get(`https://ipinfo.io/${ip}/json`);
+        ispInfo = {
+            city: response.data.city || "Unknown",
+            region: response.data.region || "Unknown",
+            country: response.data.country || "Unknown",
+            isp: response.data.org || "Unknown",
+        };
+    } catch (error) {
+        console.log("IP lookup failed:", error.message);
+    }
+
+    res.render("index", { ip, deviceInfo, ispInfo });
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
