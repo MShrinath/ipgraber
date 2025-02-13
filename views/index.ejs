@@ -8,6 +8,7 @@
 <body>
     <h2>Your IP Address:</h2>
     <p><strong><%= ip %></strong></p>
+
     <h2>Your Network Info:</h2>
     <ul>
         <li><strong>ISP:</strong> <%= ispInfo.isp %></li>
@@ -22,35 +23,5 @@
         <li><strong>CPU Architecture:</strong> <%= deviceInfo.cpu %></li>
         <li><strong>User-Agent:</strong> <%= deviceInfo.userAgent %></li>
     </ul>
-
-    <h2>Extra Device Data (Client-Side):</h2>
-    <ul>
-        <li><strong>Screen Resolution:</strong> <span id="screen"></span></li>
-        <li><strong>Color Depth:</strong> <span id="colorDepth"></span></li>
-        <li><strong>Time Zone:</strong> <span id="timezone"></span></li>
-        <li><strong>Touch Support:</strong> <span id="touch"></span></li>
-        <li><strong>Online Status:</strong> <span id="online"></span></li>
-        <li><strong>Battery Level:</strong> <span id="battery"></span></li>
-        <li><strong>CPU Cores:</strong> <span id="cpuCores"></span></li>
-        <li><strong>RAM Size:</strong> <span id="ram"></span></li>
-    </ul>
-
-    <script>
-        document.getElementById("screen").innerText = `${screen.width}x${screen.height}`;
-        document.getElementById("colorDepth").innerText = `${screen.colorDepth}-bit`;
-        document.getElementById("timezone").innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById("touch").innerText = ('ontouchstart' in window) ? "Yes" : "No";
-        document.getElementById("online").innerText = navigator.onLine ? "Online" : "Offline";
-        document.getElementById("cpuCores").innerText = navigator.hardwareConcurrency || "Unknown";
-        document.getElementById("ram").innerText = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : "Unknown";
-
-        if (navigator.getBattery) {
-            navigator.getBattery().then(battery => {
-                document.getElementById("battery").innerText = `${Math.round(battery.level * 100)}% ${battery.charging ? "(Charging)" : "(Not Charging)"}`;
-            });
-        } else {
-            document.getElementById("battery").innerText = "Not Supported";
-        }
-    </script>
 </body>
 </html>
