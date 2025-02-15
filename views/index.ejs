@@ -13,6 +13,7 @@
     <ul>
         <li><strong>ISP:</strong> <%= ispInfo.isp %></li>
         <li><strong>Location:</strong> <%= ispInfo.city %>, <%= ispInfo.region %>, <%= ispInfo.country %></li>
+        <li><strong>Date & Time:</strong> <%= new Date(ispInfo.dateTime).toLocaleString() %></li>
     </ul>
 
     <h2>Your Device Details:</h2>
