@@ -6,11 +6,9 @@ const axios = require("axios");
 const app = express();
 const PORT = 3000;
 
-// Set EJS as the template engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Middleware to extract real IP
 app.get("/", async (req, res) => {
     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
     if (ip.includes(",")) ip = ip.split(",")[0];
@@ -34,12 +32,17 @@ app.get("/", async (req, res) => {
             region: response.data.region || "Unknown",
             country: response.data.country || "Unknown",
             isp: response.data.org || "Unknown",
+            dateTime: new Date().toISOString(), // Add current date & time in ISO format
         };
     } catch (error) {
         console.log("IP lookup failed:", error.message);
     }
 
-    res.render("index", { ip, deviceInfo, ispInfo });
+    const fullData = { ip, deviceInfo, ispInfo };
+    
+    console.log(JSON.stringify(fullData, null, 2)); // Pretty-print JSON in console
+
+    res.render("index", fullData);
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
