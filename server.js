@@ -34,7 +34,14 @@ app.get("/", async (req, res) => {
             region: response.data.region || "Unknown",
             country: response.data.country || "Unknown",
             isp: response.data.org || "Unknown",
-            dateTime: new Date().toLocaleString(),
+            dateTime: new Date().toLocaleString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true
+            }),
         };
     } catch (error) {
         console.log("IP lookup failed:", error.message);
