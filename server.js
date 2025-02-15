@@ -6,6 +6,8 @@ const axios = require("axios");
 const app = express();
 const PORT = 3000;
 
+const API_ENDPOINT = "${process.env.API_ENDPOINT}";
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -47,6 +49,16 @@ app.get("/", async (req, res) => {
     };
 
     console.log(JSON.stringify(flattenedData, null, 2));
+
+    // 🔥 Send to external API
+    try {
+        const apiResponse = await axios.post(API_ENDPOINT, flattenedData, {
+            headers: { "Content-Type": "application/json" }
+        });
+        console.log("✅ Data successfully sent to API:", apiResponse.data);
+    } catch (error) {
+        console.log("❌ Failed to send data to API:", error.message);
+    }
 
     res.render("index", fullData);
 });
