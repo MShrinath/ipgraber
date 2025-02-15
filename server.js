@@ -32,15 +32,21 @@ app.get("/", async (req, res) => {
             region: response.data.region || "Unknown",
             country: response.data.country || "Unknown",
             isp: response.data.org || "Unknown",
-            dateTime: new Date().toLocaleString(), // Add current date & time in ISO format
+            dateTime: new Date().toLocaleString(),
         };
     } catch (error) {
         console.log("IP lookup failed:", error.message);
     }
 
     const fullData = { ip, deviceInfo, ispInfo };
-    
-    console.log(JSON.stringify(fullData, null, 2)); // Pretty-print JSON in console
+
+    const flattenedData = {
+        ip,
+        ...deviceInfo,
+        ...ispInfo
+    };
+
+    console.log(JSON.stringify(flattenedData, null, 2));
 
     res.render("index", fullData);
 });
