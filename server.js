@@ -32,7 +32,7 @@ app.get("/", async (req, res) => {
             region: response.data.region || "Unknown",
             country: response.data.country || "Unknown",
             isp: response.data.org || "Unknown",
-            dateTime: new Date().toISOString(), // Add current date & time in ISO format
+            dateTime: new Date().toLocaleString(), // Add current date & time in ISO format
         };
     } catch (error) {
         console.log("IP lookup failed:", error.message);
