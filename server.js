@@ -6,7 +6,7 @@ const axios = require("axios");
 const app = express();
 const PORT = 3000;
 
-const API_ENDPOINT = "${process.env.API_ENDPOINT}";
+const API_ENDPOINT = `${process.env.API_ENDPOINT}`;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
