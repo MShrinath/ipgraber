@@ -41,6 +41,7 @@ app.get("/", async (req, res) => {
                 hour: "numeric",
                 minute: "numeric",
                 hour12: true,
+                timeZone: "Asia/Kolkata",
                 timeZoneName: "short"
             }),
         };
