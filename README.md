@@ -19,10 +19,12 @@ To customize the page, edit [index.ejs](src/views/index.ejs).
 
 ## What It Does
 
-- Captures visitor IP address
-- Gets approximate ISP and location data
-- Detects browser, OS, device type, and CPU architecture
-- Sends all collected data to a custom endpoint (webhook, API, etc.)
+- IP Address — obtained from request headers
+- Location & ISP — resolved using ipinfo.io
+- Browser & OS — parsed from the User-Agent header
+- Device Type & CPU — inferred from User-Agent data
+- Timestamp — generated on the server (IST)
+- External Sync — forwarded to a custom API endpoint
 
 ---
 
