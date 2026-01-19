@@ -59,7 +59,7 @@ app.get("/", async (req, res) => {
 
     console.log(JSON.stringify(flattenedData, null, 2));
 
-    // 🔥 Send to external API
+    // Send to external API
     try {
         const apiResponse = await axios.post(API_ENDPOINT, flattenedData, {
             headers: { "Content-Type": "application/json" }
