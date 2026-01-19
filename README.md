@@ -30,11 +30,3 @@ The frontend is intentionally minimal and can be changed however you want withou
 2. Connect to Netlify
 3. Set environment variable: `API_ENDPOINT` in Netlify dashboard
 4. Deploy!
-
-## Running Locally
-
-```bash
-cp .env.example .env
-npm i
-npm start
-```
