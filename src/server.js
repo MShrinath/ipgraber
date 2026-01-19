@@ -4,11 +4,11 @@ const UAParser = require("ua-parser-js");
 const axios = require("axios");
 
 const app = express();
-const PORT = 3000;
 
 const API_ENDPOINT = `${process.env.API_ENDPOINT}`;
 
 app.set("view engine", "ejs");
+app.engine('ejs', require('ejs').__express);
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", async (req, res) => {
@@ -57,7 +57,7 @@ app.get("/", async (req, res) => {
         ...ispInfo
     };
 
-    console.log(JSON.stringify(flattenedData, null, 2));
+    // console.log(JSON.stringify(flattenedData, null, 2));
 
     // Send to external API
     try {
@@ -72,4 +72,4 @@ app.get("/", async (req, res) => {
     res.render("index", fullData);
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+module.exports = app;
